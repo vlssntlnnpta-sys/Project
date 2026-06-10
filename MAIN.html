@@ -1,0 +1,885 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>VLS-Parfum.com</title>
+</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLS Parfum</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- General Layout --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            overflow-x: hidden;
+        }
+
+        section {
+            min-height: 100vh;
+            width: 100vw;
+            padding: 120px 80px 60px 80px; 
+            display: flex;
+            position: relative;
+        }
+
+        .pill-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.15rem;
+            text-decoration: none;
+            color: #111111;
+            border: 1.5px solid #111111;
+            border-radius: 50px;
+            padding: 14px 45px;
+            background: transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pill-btn:hover {
+            background-color: #111111;
+            color: #ffffff;
+        }
+
+        /* ==========================================================================
+           SIDEBAR NAVIGATION MENU 
+           ========================================================================== */
+        .sidebar-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 99999;
+            display: none; /* Controlled by JavaScript */
+        }
+
+        .sidebar-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 320px;
+            height: 100vh;
+            background-color: #ffffff;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar-drawer.active {
+            transform: translateX(0);
+        }
+
+        .sidebar-close-btn {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #111111;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-menu-item {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+            color: #111111;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 8px 0;
+            display: block;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .sidebar-menu-item:hover {
+            border-color: #111111;
+        }
+
+        /* ==========================================================================
+           LOGIN SCREEN OVERLAY 
+           ========================================================================== */
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #1a1a1a; 
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            z-index: 9999; 
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .login-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 12%; 
+        }
+
+        .login-left h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem; 
+            color: #ffffff;
+            font-weight: 400;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 440px; 
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .form-input-group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 8px;
+        }
+
+        .form-input-group label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            color: #b3b3b3;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        .login-form input {
+            width: 100%;
+            background-color: #444444; 
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.05rem;
+            color: #ffffff;
+            outline: none;
+        }
+
+        .login-form input::placeholder {
+            color: #888888;
+        }
+
+        .login-submit-btn {
+            align-self: flex-start;
+            background-color: #ffffff;
+            color: #111111;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 50px;
+            margin-top: 15px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .login-submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Right Side Content Elements */
+        .login-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 0 12%;
+            color: #111111;
+        }
+
+        .brand-logo-frame {
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.2rem; 
+            color: #111111; 
+            border: 4px solid #111111; 
+            padding: 20px 40px; 
+            letter-spacing: 2px;
+            text-align: center;
+            width: 100%;
+            max-width: 440px;
+            margin-bottom: 40px;
+        }
+
+        .brand-logo-sub {
+            font-family: 'Poppins', sans-serif; 
+            font-size: 0.8rem; 
+            letter-spacing: 3px; 
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .brand-description-text {
+            font-size: 0.95rem; 
+            line-height: 1.7; 
+            text-align: justify; 
+            color: #555555;
+            max-width: 440px;
+        }
+
+        /* --- View Visibility Rules --- */
+        #main-application {
+            display: none; 
+        }
+
+        /* ==========================================================================
+           MY ACCOUNT COMPONENT INTERFACE
+           ========================================================================== */
+        #account-view-section {
+            display: none; 
+            background-color: #ffffff;
+            flex-direction: column;
+            padding: 160px 10% 60px 10%;
+        }
+
+        .account-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            margin-bottom: 80px;
+        }
+
+        .account-title-area h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: #111111;
+            margin-bottom: 16px;
+        }
+
+        .account-user-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .account-avatar-placeholder {
+            width: 36px;
+            height: 36px;
+            background-color: #e0e0e0;
+            color: #888888;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .account-username-label {
+            font-size: 1.05rem;
+            color: #444444;
+        }
+
+        .account-actions-group {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding-top: 15px;
+        }
+
+        .cart-icon-btn {
+            font-size: 1.75rem;
+            color: #111111;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .logout-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 400;
+            color: #111111;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .account-status-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .status-card-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #111111;
+        }
+
+        .status-icon-wrapper {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+        }
+
+        .status-card-box span {
+            font-size: 1.05rem;
+            font-weight: 500;
+            text-decoration: underline;
+        }
+
+        .account-footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-top: 140px;
+            width: 100%;
+        }
+
+        /* ==========================================================================
+           ABOUT US / MEET THE TEAM
+           ========================================================================== */
+        #about-us-section {
+            display: none;
+            background-color: #f7f7f7;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 40px;
+            padding: 160px 10% 80px 10%;
+        }
+
+        .about-content-left h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.8rem;
+            margin-bottom: 40px;
+        }
+
+        .team-roster-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .team-role-block strong {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .team-names-wrapper {
+            font-size: 1.1rem;
+            color: #444444;
+            line-height: 1.6;
+            padding-left: 15px;
+        }
+
+        .about-graphics-right {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* ==========================================================================
+           MAIN APPAREL/STORE SECTIONS
+           ========================================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 80px;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .brand-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+        }
+
+        .nav-right-side {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .my-account-link {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #111111;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .hamburger-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger-menu div {
+            width: 32px;
+            height: 2px;
+            background-color: #111111;
+        }
+
+        .home-section {
+            background-color: #ffffff; 
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 0; 
+        }
+
+        .hero-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .hero-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            font-weight: 400;
+            line-height: 1.05;
+        }
+
+        .hero-img-banner {
+            width: 100vw;
+            margin-left: -80px; 
+            height: 65vh;
+            background-image: url('https://cdn.corenexis.com/files/c/3576485720.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* --- Categories Panel Layout --- */
+        .categories-section {
+            background-color: #ffffff;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .categories-top-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .categories-title-group h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            font-weight: 400;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 280px); 
+            gap: 25px 40px;                                    
+            margin: auto auto 60px auto;              
+        }
+
+        .categories-grid .pill-btn {
+            width: 100%;
+            padding: 14px 20px;                               
+            justify-content: space-between;                    
+        }
+
+        /* --- Packaging Highlight Layout --- */
+        .vls-section {
+            background-color: #ffffff;
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            gap: 60px;
+        }
+
+        .vls-left-content {
+            display: flex;
+            flex-direction: column;
+            padding-top: 40px;
+        }
+
+        .vls-brand-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .tag-label {
+            align-self: flex-start;
+            border: 1px solid #111111;
+            border-radius: 50px;
+            padding: 6px 18px;
+            margin-bottom: 50px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 45px;
+        }
+
+        .feature-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+        }
+
+        .feature-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-text p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #333333;
+            text-align: justify;
+        }
+
+        .vls-right-image {
+            width: 100%;
+            height: 75vh;
+            background-image: url('https://cdn.corenexis.com/files/c/3145456720.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+
+        #store-front-contents {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar-nav-overlay" id="sidebarMenuOverlay" onclick="closeNavigationDrawer()">
+        <div class="sidebar-drawer" id="sidebarDrawerPanel" onclick="event.stopPropagation()">
+            <button class="sidebar-close-btn" onclick="closeNavigationDrawer()"><i class="fa-solid fa-xmark"></i></button>
+            <nav class="sidebar-menu-list">
+                <span class="sidebar-menu-item" onclick="handleMenuRouting('login')">Log In</span>
+                <span class="sidebar-menu-item" onclick="handleMenuRouting('home')">Home Page</span>
+                <span class="sidebar-menu-item" onclick="handleMenuRouting('categories')">Categories</span>
+                <span class="sidebar-menu-item" onclick="handleMenuRouting('account')">My Profile</span>
+                <span class="sidebar-menu-item" onclick="handleMenuRouting('about')">About Us</span>
+            </nav>
+        </div>
+    </div>
+
+    <div id="login-screen">
+        <div class="login-left">
+            <h2>Log In</h2>
+            <form class="login-form" id="perfumeLoginForm" onsubmit="executeStoreLogin(event)">
+                
+                <div class="form-input-group">
+                    <label for="usernameInput">Name</label>
+                    <input type="text" id="usernameInput" placeholder="Enter your name" required>
+                </div>
+                
+                <div class="form-input-group">
+                    <label for="passwordInput">Password</label>
+                    <input type="password" id="passwordInput" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="login-submit-btn">Log In</button>
+            </form>
+        </div>
+        <div class="login-right">
+            <div class="brand-logo-frame">
+                VLS PARFUM
+                <div class="brand-logo-sub">YOUR ON-THE-GO SCENT</div>
+            </div>
+            <p class="brand-description-text">
+                <strong>VLS Parfum</strong> offers luxury-inspired fragrances that give an 
+                elegant and long-lasting scent experience at an affordable 
+                price. Designed for everyday use, its compact and travel-
+                friendly packaging makes it easy to refresh your fragrance 
+                anytime, anywhere.
+            </p>
+        </div>
+    </div>
+
+
+    <div id="main-application">
+        
+        <header>
+            <div class="logo-box" onclick="navigateToStorefront()">
+                <h1 class="brand-title">VLS Parfúm</h1>
+            </div>
+            <div class="nav-right-side">
+                <span class="my-account-link" id="navAccountProfileLink" onclick="navigateToAccountView()">Vaneza</span>
+                <div class="hamburger-menu" onclick="openNavigationDrawer()" title="Open Menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </header>
+
+        <div id="store-front-contents">
+            <section class="home-section" id="home-view-anchor">
+                <div class="hero-top-row">
+                    <h2 class="hero-headline">Your On-The-Go Scent <span>&rarr;</span></h2>
+                    <a href="#categories-target" class="pill-btn">Shop Now</a>
+                </div>
+                <div class="hero-img-banner"></div>
+            </section>
+
+            <section class="categories-section" id="categories-target">
+                <div class="categories-top-row">
+                    <div class="categories-title-group">
+                        <h2>Categories</h2>
+                        <p style="font-size: 1.25rem; color: #111111;"><strong>VLS Parfum</strong> Your On-The-Go Scent</p>
+                    </div>
+                </div>
+
+                <div class="categories-grid">
+                    <a href="womens-fragrance.html" class="pill-btn">Women's Fragrance <span>&rarr;</span></a>
+                    <a href="unisex-fragrance.html" class="pill-btn">Unisex Fragrance <span>&rarr;</span></a>
+                    <a href="mens-fragrance.html" class="pill-btn">Men's Fragrance <span>&rarr;</span></a>
+                    <a href="best-sellers.html" class="pill-btn">Best Sellers <span>&rarr;</span></a>
+                    <a href="collection.html" class="pill-btn">Collection <span>&rarr;</span></a>
+                    <a href="new-arrivals.html" class="pill-btn">New Arrivals <span>&rarr;</span></a>
+                </div>
+            </section>
+
+            <section class="vls-section">
+                <div class="vls-left-content">
+                    <h2 class="vls-brand-header">VLS Parfum</h2>
+                    <div class="tag-label">Packaging</div>
+
+                    <div class="feature-item">
+                        <div class="feature-number">01</div>
+                        <div class="feature-text">
+                            <h3>Premium Structure</h3>
+                            <p>Crafted with high-quality, ultra-thick white board paper, the packaging features a sharp, rigid silhouette that maintains its clean shape.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-number">02</div>
+                        <div class="feature-text">
+                            <h3>Elegant Branding</h3>
+                            <p>The front is detailed with our signature VLS Parfum label, utilized as a high-contrast black glossy sticker print.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="vls-right-image"></div>
+            </section>
+        </div>
+
+        <section id="account-view-section">
+            <div class="account-panel-header">
+                <div class="account-title-area">
+                    <h2>My Account</h2>
+                    <div class="account-user-meta">
+                        <div class="account-avatar-placeholder"><i class="fa-regular fa-user"></i></div>
+                        <span class="account-username-label" id="accountUserLabel">Vaneza</span>
+                    </div>
+                </div>
+                <div class="account-actions-group">
+                    <button class="cart-icon-btn"><i class="fa-solid fa-cart-shopping"></i></button>
+                    <button class="logout-action-btn" onclick="executeStoreLogout()">
+                        <i class="fa-solid fa-gear"></i> Log out
+                    </button>
+                </div>
+            </div>
+
+            <div class="account-status-grid">
+                <a href="#" class="status-card-box">
+                    <div class="status-icon-wrapper"><i class="fa-solid fa-location-dot"></i></div>
+                    <span>Shipping Addresses</span>
+                </a>
+                <a href="#" class="status-card-box">
+                    <div class="status-icon-wrapper"><i class="fa-solid fa-arrows-spin"></i></div>
+                    <span>Processing</span>
+                </a>
+                <a href="#" class="status-card-box">
+                    <div class="status-icon-wrapper"><i class="fa-solid fa-gear"></i></div>
+                    <span>Shipped</span>
+                </a>
+                <a href="#" class="status-card-box">
+                    <div class="status-icon-wrapper"><i class="fa-solid fa-truck"></i></div>
+                    <span>Delivered</span>
+                </a>
+            </div>
+
+            <div class="account-footer-brand">VLS Parfum</div>
+        </section>
+
+        <section id="about-us-section">
+            <div class="about-content-left">
+                <h2>MEET THE TEAM</h2>
+                <ul class="team-roster-list">
+                    <li class="team-role-block">
+                        <strong>• Team Leader (UI/UX Designer & PPT)</strong>
+                        <div class="team-names-wrapper">Santillan, Vaneza Lourdes</div>
+                    </li>
+                    <li class="team-role-block">
+                        <strong>• Assistant Leader (Team Coordination)</strong>
+                        <div class="team-names-wrapper">Ganiban, Ashlie Mae</div>
+                    </li>
+                    <li class="team-role-block">
+                        <strong>• Developers (HTML, CSS, PHP & JavaScript)</strong>
+                        <div class="team-names-wrapper">
+                            Santillan, Vaneza Lourdes<br>
+                            Morojo, John Michael<br>
+                            Vinalon, Mark Justin<br>
+                            Flores, Lui Jacob
+                        </div>
+                    </li>
+                </ul>
+            </div>
+          
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Open Navigation Drawer Overlay
+        function openNavigationDrawer() {
+            const overlay = document.getElementById('sidebarMenuOverlay');
+            const panel = document.getElementById('sidebarDrawerPanel');
+            overlay.style.display = 'block';
+            setTimeout(() => {
+                panel.classList.add('active');
+            }, 10);
+        }
+
+        // Close Navigation Drawer Overlay
+        function closeNavigationDrawer() {
+            const overlay = document.getElementById('sidebarMenuOverlay');
+            const panel = document.getElementById('sidebarDrawerPanel');
+            panel.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+        }
+
+        function handleMenuRouting(targetSection) {
+            closeNavigationDrawer();
+            
+            if (targetSection === 'login') {
+                executeStoreLogout();
+                return;
+            }
+
+            document.getElementById('store-front-contents').style.display = 'none';
+            document.getElementById('account-view-section').style.display = 'none';
+            document.getElementById('about-us-section').style.display = 'none';
+
+            if (targetSection === 'home') {
+                document.getElementById('store-front-contents').style.display = 'block';
+                window.scrollTo(0, 0);
+            } else if (targetSection === 'categories') {
+                document.getElementById('store-front-contents').style.display = 'block';
+                const targetElement = document.getElementById('categories-target');
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            } else if (targetSection === 'account') {
+                document.getElementById('account-view-section').style.display = 'flex';
+                window.scrollTo(0, 0);
+            } else if (targetSection === 'about') {
+                document.getElementById('about-us-section').style.display = 'grid';
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function executeStoreLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('usernameInput').value;
+
+            if (username.trim() !== "") {
+                document.getElementById('navAccountProfileLink').innerText = username;
+                document.getElementById('accountUserLabel').innerText = username;
+
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-application').style.display = 'block';
+                
+                handleMenuRouting('home');
+            }
+        }
+
+        function executeStoreLogout() {
+            document.getElementById('main-application').style.display = 'none';
+            const loginScreen = document.getElementById('login-screen');
+            loginScreen.style.display = 'grid';
+            window.scrollTo(0, 0);
+        }
+
+        function navigateToStorefront() { handleMenuRouting('home'); }
+        function navigateToAccountView() { handleMenuRouting('account'); }
+    </script>
+
+</body>
+</html>
+
+```

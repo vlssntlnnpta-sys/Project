@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Fragrance - VLS Parfum</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background-color: #eaeaea; color: #111111; overflow-x: hidden; }
+        header { position: fixed; top: 0; left: 0; width: 100%; height: 90px; display: flex; justify-content: space-between; align-items: center; padding: 0 80px; background-color: rgba(234, 234, 234, 0.95); z-index: 1000; }
+        .logo-box { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #111111; cursor: pointer; }
+        .brand-title { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 500; }
+        section { min-height: 100vh; padding: 140px 80px 60px 80px; display: flex; flex-direction: column; }
+        .title-group h2 { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 400; margin-bottom: 10px; }
+        .tag-label { display: inline-block; border: 1px solid #111111; border-radius: 50px; padding: 6px 25px; font-size: 0.9rem; margin-bottom: 60px; }
+        .products-grid { display: flex; gap: 30px; width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+        .product-card { flex: 1; max-width: 220px; min-width: 200px; display: flex; flex-direction: column; align-items: center; }
+        .img-box { width: 100%; aspect-ratio: 1/1; position: relative; background-size: cover; background-position: center; margin-bottom: 15px; }
+        .price-tag { position: absolute; top: 0; right: 0; background-color: #333333; color: #ffffff; padding: 4px 12px; font-size: 0.9rem; }
+        .product-name { font-size: 0.95rem; font-weight: 500; text-align: center; font-style: italic; margin-bottom: 20px; height: 40px; }
+        .action-btn { width: 100%; max-width: 150px; padding: 10px; border-radius: 50px; font-family: 'Poppins', sans-serif; font-size: 0.85rem; border: none; text-align: center; text-decoration: none; cursor: pointer; display: inline-block; }
+        .btn-add { background-color: #4a4a4a; color: #ffffff; transition: background 0.2s; }
+        .btn-add:hover { background-color: #111111; }
+        .btn-out { background-color: #444444; color: #ffffff; opacity: 0.5; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-box" onclick="navigateToStorefront()">
+            <h1 class="brand-title">VLS Parfúm</h1>
+        </div>
+    </header>
+
+    <section>
+        <div class="title-group">
+            <h2>Women's Fragrance</h2>
+            <div class="tag-label">Collection</div>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="img-box" style="background-image: url('https://cdn.corenexis.com/files/c/5976316720.jpg');">
+                    <div class="price-tag">&#8369; 179</div>
+                </div>
+                <div class="product-name">Jo Malone English Pear</div>
+                <button class="action-btn btn-add" onclick="addToCart('Jo Malone English Pear', 179)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <div class="img-box" style="background-image: url('https://cdn.corenexis.com/files/c/1352118720.jpg');">
+                    <div class="price-tag">&#8369; 179</div>
+                </div>
+                <div class="product-name">Coco Chanel</div>
+                <button class="action-btn btn-out" disabled>OUT OF STOCK</button>
+            </div>
+            <div class="product-card">
+                <div class="img-box" style="background-image: url('https://cdn.corenexis.com/files/c/6462823720.jpg');">
+                    <div class="price-tag">&#8369; 179</div>
+                </div>
+                <div class="product-name">Bvlgari Omnia</div>
+                <button class="action-btn btn-add" onclick="addToCart('Bvlgari Omnia', 179)">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <div class="img-box" style="background-image: url('https://cdn.corenexis.com/files/c/9455586720.jpg');">
+                    <div class="price-tag">&#8369; 179</div>
+                </div>
+                <div class="product-name">Tiffany & Co</div>
+                <button class="action-btn btn-out" disabled>OUT OF STOCK</button>
+            </div>
+            <div class="product-card">
+                <div class="img-box" style="background-image: url('https://cdn.corenexis.com/files/c/1626888720.jpg');">
+                    <div class="price-tag">&#8369; 179</div>
+                </div>
+                <div class="product-name">Versace Bright Crystal</div>
+                <button class="action-btn btn-out" disabled>OUT OF STOCK</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Interactive Cart functionality using localStorage
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem('vls_cart')) || [];
+            cart.push({ name: name, price: price });
+            localStorage.setItem('vls_cart', JSON.stringify(cart));
+            alert(`${name} has been added to your cart!`);
+        }
+
+        // Cross-page routing back to the storefront setup on index.html
+        function navigateToStorefront() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

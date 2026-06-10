@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection Collage - VLS Parfum</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background-color: #ffffff; color: #111111; }
+        header { position: fixed; top: 0; left: 0; width: 100%; height: 90px; display: flex; justify-content: space-between; align-items: center; padding: 0 80px; background-color: rgba(255, 255, 255, 0.95); z-index: 1000; }
+        .logo-box { display: flex; align-items: center; text-decoration: none; color: #111111; }
+        .brand-title { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 500; }
+        section { min-height: 100vh; padding: 140px 80px 60px 80px; display: flex; flex-direction: column; }
+        .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 5.5rem; font-weight: 400; }
+        .arrow { font-size: 5rem; font-weight: 300; }
+        .collage-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; width: 100%; }
+        .block { width: 100%; aspect-ratio: 4/5; background-size: cover; background-position: center; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo-box"><h1 class="brand-title">VLS Parfúm</h1></a>
+    </header>
+    <section>
+        <div class="top-row">
+            <h2>Collection</h2>
+            <div class="arrow">&darr;</div>
+        </div>
+        <div class="collage-grid">
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/5343279720.jpg');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/4486957720.jpg');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/7521753720.png');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/7759174720.jpg');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/2637274720.jpg');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/5772886720.jpg');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/9245114720.jpg');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/5871563720.jpg');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/5182344720.jpg');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/6184714720.jpg');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/7862432720.jpg');"></div>
+            <div class="block" style="background-image: url('https://cdn.corenexis.com/files/c/9983725720.jpg');"></div>
+        </div>
+    </section>
+</body>
+</html>
